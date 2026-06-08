@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ameya Gupta | Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        body { font-family: 'Inter', system_ui, sans-serif; }
+        .font-display { font-family: 'Space Grotesk', 'Inter', sans-serif; font-weight: 600; }
+        .section-header { font-size: 2.25rem; line-height: 2.5rem; font-weight: 700; letter-spacing: -0.025em; }
+        .glass { background: rgba(255,255,255,0.06); backdrop-filter: blur(16px); border: 1px solid rgba(255,255,255,0.1); }
+        .matrix-canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; opacity: 0.9; }
+        .three-container { position: relative; z-index: 2; }
+        .hero-text { text-shadow: 0 4px 20px rgba(0, 0, 0, 0.6); }
+    </style>
+</head>
+<body class="bg-[#0F0A1F] text-white">
+
+    <!-- Music Button -->
+    <div class="fixed top-5 right-5 z-[60]">
+        <button id="music-toggle" class="flex items-center gap-x-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/20 transition-all text-sm">
+            <i class="fa-solid fa-music"></i>
+            <span id="music-text">Play Music</span>
+        </button>
+    </div>
+
+    <audio id="bg-music" loop>
+        <source src="https://cdn.pixabay.com/audio/2022/03/15/audio_2b5e2f3e2e.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Navbar -->
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-[#0F0A1F]/90 backdrop-blur-lg border-b border-white/10">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+            <div class="flex items-center gap-x-3">
+                <div class="w-9 h-9 rounded-full bg-gradient-to-br from-purple-500 to-violet-600 flex items-center justify-center">
+                    <span class="font-bold text-lg">AG</span>
+                </div>
+                <span class="font-display text-2xl font-semibold tracking-tight">Ameya Gupta</span>
+            </div>
+            
+            <div class="hidden md:flex items-center gap-x-8 text-sm">
+                <a href="#about" class="hover:text-purple-400 transition-colors">About</a>
+                <a href="#education" class="hover:text-purple-400 transition-colors">Education</a>
+                <a href="#experience" class="hover:text-purple-400 transition-colors">Experience</a>
+                <a href="#projects" class="hover:text-purple-400 transition-colors">Projects</a>
+                <a href="#timeline" class="hover:text-purple-400 transition-colors">Journey</a>
+            </div>
+            
+            <div class="flex items-center gap-x-3">
+                <a href="https://www.linkedin.com/in/ameya-gupta-bb5841305/" target="_blank" class="flex items-center gap-x-2 px-4 py-2 rounded-full bg-[#0A66C2] hover:bg-[#004182] transition-colors text-sm font-medium">
+                    <i class="fa-brands fa-linkedin"></i>
+                    <span>LinkedIn <span class="text-white/70">(100+)</span></span>
+                </a>
+                <a href="https://www.instagram.com/ameyagogogo/" target="_blank" class="flex items-center gap-x-2 px-4 py-2 rounded-full bg-gradient-to-r from-[#F56040] via-[#C13584] to-[#405DE6] hover:opacity-90 transition-all text-sm font-medium">
+                    <i class="fa-brands fa-instagram"></i>
+                    <span>Instagram <span class="text-white/80">(1K+)</span></span>
+                </a>
+                <a href="#contact" class="px-5 py-2 rounded-full bg-white text-[#0F0A1F] font-medium text-sm hover:bg-white/90 transition-colors">Get in touch</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="relative h-screen flex items-center justify-center overflow-hidden pt-16">
+        <div class="absolute inset-0 bg-gradient-to-br from-[#0a0a1f] via-[#0F0A1F] to-[#1A0F3D]"></div>
+        <canvas id="matrix-canvas" class="matrix-canvas"></canvas>
+        <div id="three-container" class="three-container absolute z-20 w-[380px] h-[380px] md:w-[480px] md:h-[480px]"></div>
+        
+        <div class="relative z-30 max-w-5xl px-6 text-center">
+            <div class="inline-flex items-center gap-x-2 px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 mb-6">
+                <div class="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></div>
+                <span class="text-sm font-medium tracking-wider">HIGH SCHOOL SENIOR • CLASS OF 2027</span>
+            </div>
+            <h1 class="font-display text-7xl md:text-8xl font-bold tracking-tighter mb-4 hero-text">AMEYA GUPTA</h1>
+            <p class="max-w-2xl mx-auto text-2xl md:text-3xl text-white/90 font-light tracking-tight mb-8">
+                NASA Intern • Founder of AI Explorers<br>
+                VEX Robotics Leader • Educator
+            </p>
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <a href="#about" class="group px-8 py-4 rounded-2xl bg-white text-[#0F0A1F] font-semibold flex items-center justify-center gap-x-3 hover:bg-white/90 transition-all">
+                    Explore My Work <i class="fa-solid fa-arrow-right group-active:translate-x-1 transition-transform"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT ME -->
+    <section id="about" class="max-w-5xl mx-auto px-6 py-16 border-t border-white/10">
+        <div class="max-w-3xl">
+            <div class="uppercase tracking-[3px] text-purple-400 text-sm font-semibold mb-3">ABOUT ME</div>
+            <h2 class="section-header mb-6">High school senior passionate about building, learning, and teaching.</h2>
+            
+            <div class="space-y-4 text-white/80 text-lg">
+                <p>I'm a senior at Jesuit High School in Folsom, California with a strong passion for electrical engineering, artificial intelligence, competitive mathematics, and robotics. I love building things that solve real problems and teaching others what I’ve learned along the way.</p>
+                
+                <p>I founded <span class="font-semibold text-white">AI Explorers</span>, an initiative that introduces younger students to artificial intelligence through interactive lessons. I also run an educational Instagram account (@ameyagogogo) with over 1,000 followers where I teach SAT math strategies.</p>
+                
+                <p>Outside of academics, I compete in VEX Robotics as a programmer and content creator for team Cognitaur 29712C (qualified for the World Championship). I’ve also completed a competitive NASA internship in aerospace research. I enjoy combining technical skills with creativity — whether that’s building web projects with Three.js, editing robotics videos, or designing curriculum.</p>
+                
+                <p>In my free time, I like playing chess, working on personal coding projects, and spending time outdoors. I also run two YouTube channels: <strong>ProCoderGaming</strong> and <strong>COGNITAUR</strong>.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- EDUCATION -->
+    <section id="education" class="max-w-5xl mx-auto px-6 py-16 border-t border-white/10">
+        <div class="text-center mb-10">
+            <div class="uppercase tracking-[3px] text-purple-400 text-sm font-semibold mb-2">BACKGROUND</div>
+            <h2 class="section-header">Education &amp; Test Scores</h2>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-8">
+            <div class="glass rounded-3xl p-8">
+                <h3 class="font-semibold text-xl mb-4">Education</h3>
+                <div>
+                    <div class="font-semibold">Jesuit High School — Sacramento, CA</div>
+                    <div class="text-white/70">Aug 2023 – May 2027 • Class of 2027</div>
+                    <div class="mt-2 text-sm text-white/80">Weighted GPA: 4.0+ • Multiple First Honors Awards every semester</div>
+                    <div class="mt-1 text-sm text-white/80">AP Scholar Award (College Board, Jul 2025) • CSF Qualifier every semester</div>
+                    <div class="mt-3 text-sm">
+                        <strong>Relevant Courses:</strong> AP Precalculus, AP Calculus, AP Physics, AP Computer Science, AP Economics, AP Psychology, AP English Literature, AP Statistics
+                    </div>
+                </div>
+            </div>
+
+            <div class="glass rounded-3xl p-8">
+                <h3 class="font-semibold text-xl mb-4">Standardized Test Scores</h3>
+                <div class="space-y-3">
+                    <div><strong>SAT (2nd attempt):</strong> 1450 <span class="text-emerald-400">(800 Math — Perfect Score)</span></div>
+                    <div><strong>SAT (1st attempt):</strong> 1390</div>
+                    <div><strong>PSAT:</strong> 1400 <span class="text-white/60">(95th percentile)</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section id="experience" class="max-w-5xl mx-auto px-6 py-16 border-t border-white/10">
+        <div class="text-center mb-10">
+            <div class="uppercase tracking-[3px] text-purple-400 text-sm font-semibold mb-2">EXPERIENCE</div>
+            <h2 class="section-header">Experience</h2>
+        </div>
+
+        <div class="space-y-6">
+            <div class="glass rounded-3xl p-8">
+                <div class="flex justify-between items-start">
+                    <div>
+                        <div class="font-semibold text-xl">Aerospace Research Intern</div>
+                        <div class="text-purple-400">NASA • 2026</div>
+                    </div>
+                </div>
+                <ul class="mt-4 space-y-2 text-white/80 text-sm">
+                    <li>• Selected for a highly competitive NASA internship program open to high school students nationwide</li>
+                    <li>• Gained hands-on experience in aerospace research and engineering alongside professional mentors</li>
+                </ul>
+            </div>
+
+            <div class="glass rounded-3xl p-8">
+                <div class="flex justify-between items-start">
+                    <div>
+                        <div class="font-semibold text-xl">Math Instructor</div>
+                        <div class="text-purple-400">Mathnasium of Rancho Cordova • 2025 – 2027</div>
+                    </div>
+                </div>
+                <ul class="mt-4 space-y-2 text-white/80 text-sm">
+                    <li>• Provided 1-on-1 and small-group math instruction to students in grades K–12 for over 1.5 years</li>
+                    <li>• Specialized in algebra, geometry, pre-calculus, and SAT Math prep (personal score: 800/800)</li>
+                </ul>
+            </div>
+
+            <div class="glass rounded-3xl p-8">
+                <div class="flex justify-between items-start">
+                    <div>
+                        <div class="font-semibold text-xl">Online Tutor — Integrated Math 2</div>
+                        <div class="text-purple-400">Suvidha International • Summer 2025</div>
+                    </div>
+                </div>
+                <ul class="mt-4 space-y-2 text-white/80 text-sm">
+                    <li>• Tutored international students in Integrated Math 2 through online sessions</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- LEADERSHIP & PROJECTS -->
+    <section id="projects" class="max-w-5xl mx-auto px-6 py-16 border-t border-white/10">
+        <div class="text-center mb-10">
+            <div class="uppercase tracking-[3px] text-purple-400 text-sm font-semibold mb-2">LEADERSHIP</div>
+            <h2 class="section-header">Leadership &amp; Projects</h2>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-6">
+            <div class="glass rounded-3xl p-8">
+                <div class="flex items-center gap-x-3 mb-3">
+                    <img src="ai-explorers.png" class="w-8 h-8" alt="AI Explorers">
+                    <div>
+                        <div class="font-semibold text-xl">Founder &amp; Lead Instructor — AI Explorers</div>
+                        <div class="text-purple-400 text-sm">2026 – Present</div>
+                    </div>
+                </div>
+                <ul class="space-y-2 text-sm text-white/80">
+                    <li>• Founded a youth AI education initiative teaching younger students artificial intelligence from scratch</li>
+                    <li>• Designed and runs a full 2-week summer AI program covering ML fundamentals and generative AI</li>
+                </ul>
+            </div>
+
+            <div class="glass rounded-3xl p-8">
+                <div class="flex items-center gap-x-3 mb-3">
+                    <img src="vex.png" class="w-8 h-8" alt="VEX V5">
+                    <div>
+                        <div class="font-semibold text-xl">Scouter, Programmer &amp; Content Creator — VEX Robotics</div>
+                        <div class="text-purple-400 text-sm">Cognitaur 29712C • 2024 – 2027</div>
+                    </div>
+                </div>
+                <ul class="space-y-2 text-sm text-white/80">
+                    <li>• 3-season member of competitive VEX V5 team — qualified for VEX Robotics World Championship</li>
+                    <li>• Won 1st Place (out of 52 teams) at Diamond in the Desert HS Signature Event (2025)</li>
+                    <li>• Received VEX Think Award — California Region 2 (Mar 2026)</li>
+                    <li>• Produced and edited 18+ official team YouTube videos</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- TECHNICAL PROJECTS -->
+    <section class="max-w-5xl mx-auto px-6 py-16 border-t border-white/10">
+        <div class="text-center mb-10">
+            <div class="uppercase tracking-[3px] text-purple-400 text-sm font-semibold mb-2">GITHUB</div>
+            <h2 class="section-header">Technical Projects</h2>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-6">
+            <div class="glass rounded-3xl p-6">
+                <div class="font-semibold mb-2">GNNS (Global News Networking System)</div>
+                <div class="text-sm text-white/70 mb-3">Schoolwide News Platform</div>
+                <p class="text-sm text-white/80">Created a schoolwide news system that grew into a major platform by the end of junior year.</p>
+            </div>
+            <div class="glass rounded-3xl p-6">
+                <div class="font-semibold mb-2">Ping Pong Is Fun</div>
+                <div class="text-sm text-white/70 mb-3">JavaScript / HTML / CSS</div>
+                <p class="text-sm text-white/80">Built a fully interactive browser-based Pong game from scratch using vanilla JS, HTML Canvas, and CSS.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- TIMELINE -->
+    <section id="timeline" class="max-w-5xl mx-auto px-6 py-16 border-t border-white/10">
+        <div class="text-center mb-12">
+            <div class="uppercase tracking-[3px] text-purple-400 text-sm font-semibold mb-2">MY JOURNEY</div>
+            <h2 class="section-header">Timeline</h2>
+        </div>
+
+        <!-- Timeline Images -->
+        <div class="grid md:grid-cols-3 gap-6 mb-12">
+            <div class="glass rounded-2xl overflow-hidden">
+                <img src="timeline1.png" alt="Timeline Part 1" class="w-full h-auto">
+            </div>
+            <div class="glass rounded-2xl overflow-hidden">
+                <img src="timeline2.png" alt="Timeline Part 2" class="w-full h-auto">
+            </div>
+            <div class="glass rounded-2xl overflow-hidden">
+                <img src="timeline3.png" alt="Timeline Part 3" class="w-full h-auto">
+            </div>
+        </div>
+
+        <!-- Text Timeline -->
+        <div class="relative max-w-3xl mx-auto">
+            <div class="absolute left-4 top-0 bottom-0 w-1 bg-gradient-to-b from-purple-500 via-violet-500 to-cyan-400"></div>
+
+            <div class="relative pl-12 pb-10">
+                <div class="absolute left-0 top-1 w-8 h-8 rounded-full bg-purple-500 flex items-center justify-center ring-4 ring-[#0F0A1F]">
+                    <span class="text-xs font-bold">1</span>
+                </div>
+                <div class="text-sm text-purple-400 font-semibold mb-1">2023–24 • Freshman Year</div>
+                <div class="glass rounded-2xl p-6">
+                    <div class="font-semibold mb-2">Joined Mathletes</div>
+                    <p class="text-sm text-white/80">Ranked Top 5 in school Mathletes competition. A strong start that set the tone for academic excellence.</p>
+                </div>
+            </div>
+
+            <div class="relative pl-12 pb-10">
+                <div class="absolute left-0 top-1 w-8 h-8 rounded-full bg-violet-500 flex items-center justify-center ring-4 ring-[#0F0A1F]">
+                    <span class="text-xs font-bold">2</span>
+                </div>
+                <div class="text-sm text-purple-400 font-semibold mb-1">2024–25 • Sophomore Year</div>
+                <div class="glass rounded-2xl p-6">
+                    <div class="font-semibold mb-2">Joined VEX Robotics + Started Mathnasium</div>
+                    <p class="text-sm text-white/80">Began competing with Cognitaur 29712C. Started 1.5-year run as Mathnasium instructor. Earned First Honors.</p>
+                </div>
+            </div>
+
+            <div class="relative pl-12 pb-10">
+                <div class="absolute left-0 top-1 w-8 h-8 rounded-full bg-cyan-400 flex items-center justify-center ring-4 ring-[#0F0A1F]">
+                    <span class="text-xs font-bold">3</span>
+                </div>
+                <div class="text-sm text-purple-400 font-semibold mb-1">2025–26 • Junior Year</div>
+                <div class="glass rounded-2xl p-6">
+                    <div class="font-semibold mb-2">VEX Worlds + AP Scholar + 1st at Diamond in the Desert</div>
+                    <p class="text-sm text-white/80">Qualified for VEX Robotics World Championship. Won 1st place out of 52 teams. Earned AP Scholar Award and 800/800 SAT Math.</p>
+                </div>
+            </div>
+
+            <div class="relative pl-12">
+                <div class="absolute left-0 top-1 w-8 h-8 rounded-full bg-emerald-400 flex items-center justify-center ring-4 ring-[#0F0A1F]">
+                    <span class="text-xs font-bold">4</span>
+                </div>
+                <div class="text-sm text-purple-400 font-semibold mb-1">2026–27 • Senior Year</div>
+                <div class="glass rounded-2xl p-6">
+                    <div class="font-semibold mb-2">NASA Intern + Founded AI Explorers + Think Award</div>
+                    <p class="text-sm text-white/80">Selected for NASA internship. Founded AI Explorers. Earned the VEX Think Award. Named Top Scorer at Mathletes Junior Bracket.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills" class="max-w-5xl mx-auto px-6 py-16 border-t border-white/10">
+        <div class="text-center mb-10">
+            <div class="uppercase tracking-[3px] text-purple-400 text-sm font-semibold mb-2">TOOLKIT</div>
+            <h2 class="section-header">Skills &amp; Technologies</h2>
+        </div>
+
+        <div class="flex flex-wrap justify-center gap-3 mb-10">
+            <div class="px-4 py-1.5 rounded-full border border-purple-500/40 text-sm">Python</div>
+            <div class="px-4 py-1.5 rounded-full border border-orange-500/40 text-sm">Java</div>
+            <div class="px-4 py-1.5 rounded-full border border-emerald-500/40 text-sm">VEX Robotics / C++</div>
+            <div class="px-4 py-1.5 rounded-full border border-pink-500/40 text-sm">AI / Machine Learning</div>
+            <div class="px-4 py-1.5 rounded-full border border-blue-500/40 text-sm">Data Analytics</div>
+            <div class="px-4 py-1.5 rounded-full border border-purple-500/40 text-sm">HTML / CSS / JavaScript</div>
+            <div class="px-4 py-1.5 rounded-full border border-yellow-500/40 text-sm">Competitive Math</div>
+            <div class="px-4 py-1.5 rounded-full border border-teal-500/40 text-sm">Teaching &amp; Curriculum Design</div>
+            <div class="px-4 py-1.5 rounded-full border border-orange-500/40 text-sm">Video Production</div>
+            <div class="px-4 py-1.5 rounded-full border border-purple-500/40 text-sm">Aerospace Research</div>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-x-12 gap-y-8">
+            <div>
+                <h4 class="font-semibold mb-4 text-purple-300">PROGRAMMING</h4>
+                <div class="space-y-5 text-sm">
+                    <div>Python — <span class="text-white/60">Advanced</span></div>
+                    <div>Java — <span class="text-white/60">Intermediate</span></div>
+                    <div>VEX Robotics (C++ / Blocks) — <span class="text-white/60">Advanced</span></div>
+                    <div>HTML / CSS / JavaScript — <span class="text-white/60">Intermediate</span></div>
+                </div>
+            </div>
+            <div>
+                <h4 class="font-semibold mb-4 text-purple-300">DOMAINS</h4>
+                <div class="space-y-5 text-sm">
+                    <div>Mathematics — <span class="text-white/60">Expert</span></div>
+                    <div>AI / Generative AI — <span class="text-white/60">Intermediate</span></div>
+                    <div>Teaching &amp; Curriculum Design — <span class="text-white/60">Advanced</span></div>
+                    <div>Video Production — <span class="text-white/60">Intermediate</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- HONORS & AWARDS -->
+    <section class="max-w-5xl mx-auto px-6 py-16 border-t border-white/10">
+        <div class="text-center mb-10">
+            <div class="uppercase tracking-[3px] text-purple-400 text-sm font-semibold mb-2">RECOGNITION</div>
+            <h2 class="section-header">Honors &amp; Awards</h2>
+        </div>
+
+        <div class="glass rounded-3xl p-8">
+            <div class="grid md:grid-cols-2 gap-x-8 gap-y-3 text-sm text-white/80">
+                <div>• 2× US Open &amp; States Qualifier</div>
+                <div>• 2× Excellence Award</div>
+                <div>• 4× Tournament Champion</div>
+                <div>• 4× Amaze Award</div>
+                <div>• 1× Think Award (California Region 2)</div>
+                <div>• 2× Robot Skills Champion</div>
+                <div>• VEX Robotics World Championship Qualifier</div>
+                <div>• 1st Place — Diamond in the Desert HS Signature Event</div>
+                <div>• AP Scholar Award — College Board (Jul 2025)</div>
+                <div>• Top Scorer — Mathletes Junior Bracket (Apr 2026)</div>
+                <div>• St. Thomas More Award — Jesuit High School (2026)</div>
+                <div>• Multiple First Honors Awards (weighted GPA 4.0+)</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- VOLUNTEERING -->
+    <section class="max-w-5xl mx-auto px-6 py-16 border-t border-white/10">
+        <div class="text-center mb-10">
+            <div class="uppercase tracking-[3px] text-purple-400 text-sm font-semibold mb-2">SERVICE</div>
+            <h2 class="section-header">Volunteering &amp; Service</h2>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-6">
+            <div class="glass rounded-3xl p-8">
+                <h3 class="font-semibold text-xl mb-2">Meristem • Fair Oaks, CA</h3>
+                <p class="text-white/80 text-sm">Volunteer since August 2024. Support students with diverse learning needs and help organize community events.</p>
+            </div>
+            <div class="glass rounded-3xl p-8">
+                <h3 class="font-semibold text-xl mb-2">L’ARCHE Seattle • Seattle, WA</h3>
+                <p class="text-white/80 text-sm">Completed a 1-week residential service immersion trip supporting adults with intellectual disabilities.</p>
+            </div>
+            <div class="glass rounded-3xl p-8 md:col-span-2">
+                <h3 class="font-semibold text-xl mb-2">Suvidha International • Summer 2025</h3>
+                <p class="text-white/80 text-sm">Online Tutor for Integrated Math 2 during summer 2025.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CERTIFICATIONS -->
+    <section class="max-w-5xl mx-auto px-6 py-16 border-t border-white/10">
+        <div class="text-center mb-10">
+            <div class="uppercase tracking-[3px] text-purple-400 text-sm font-semibold mb-2">CREDENTIALS</div>
+            <h2 class="section-header">Certifications</h2>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-4 text-sm">
+            <div class="glass rounded-2xl p-5 flex items-center gap-x-3">
+                <img src="sololearn.png" class="w-7 h-7" alt="SoloLearn">
+                <span>Introduction to Python — SoloLearn</span>
+            </div>
+            <div class="glass rounded-2xl p-5 flex items-center gap-x-3">
+                <img src="sololearn.png" class="w-7 h-7" alt="SoloLearn">
+                <span>Python Intermediate — SoloLearn</span>
+            </div>
+            <div class="glass rounded-2xl p-5 flex items-center gap-x-3">
+                <img src="sololearn.png" class="w-7 h-7" alt="SoloLearn">
+                <span>Introduction to Java — SoloLearn</span>
+            </div>
+            <div class="glass rounded-2xl p-5 flex items-center gap-x-3">
+                <img src="sololearn.png" class="w-7 h-7" alt="SoloLearn">
+                <span>Generative AI in Practice — SoloLearn</span>
+            </div>
+            <div class="glass rounded-2xl p-5 flex items-center gap-x-3">
+                <img src="microsoft.png" class="w-7 h-7" alt="Microsoft">
+                <span>Python Programming Fundamentals — Microsoft (2026)</span>
+            </div>
+            <div class="glass rounded-2xl p-5 flex items-center gap-x-3">
+                <img src="ibm.png" class="w-7 h-7" alt="IBM">
+                <span>Introduction to Data Analytics — IBM (2026)</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="max-w-3xl mx-auto px-6 py-20 text-center border-t border-white/10">
+        <h2 class="section-header mb-4">Let’s connect</h2>
+        <p class="text-white/70 mb-8">Open to opportunities in electrical engineering, AI, robotics, and education.</p>
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <a href="https://www.linkedin.com/in/ameya-gupta-bb5841305/" target="_blank" class="flex-1 sm:flex-none px-8 py-4 rounded-2xl bg-[#0A66C2] hover:bg-[#004182] flex items-center justify-center gap-x-3 text-lg transition-colors">
+                <i class="fa-brands fa-linkedin"></i> <span>LinkedIn</span>
+            </a>
+            <a href="https://www.instagram.com/ameyagogogo/" target="_blank" class="flex-1 sm:flex-none px-8 py-4 rounded-2xl bg-gradient-to-r from-[#F56040] via-[#C13584] to-[#405DE6] flex items-center justify-center gap-x-3 text-lg transition-colors">
+                <i class="fa-brands fa-instagram"></i> <span>Instagram</span>
+            </a>
+        </div>
+        <p class="text-xs text-white/40 mt-8">Folsom, California • Class of 2027</p>
+    </section>
+
+    <script>
+        // === NEW: Smooth Color Morphing Falling Characters ===
+        function initMatrixRain() {
+            const canvas = document.getElementById('matrix-canvas');
+            const ctx = canvas.getContext('2d');
+            
+            function resize() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
+            resize();
+            window.addEventListener('resize', resize);
+
+            const chars = '01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲンABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+            const fontSize = 14;
+            const columns = Math.floor(canvas.width / fontSize);
+            const drops = Array(columns).fill(1);
+
+            // Color gradient from top to bottom
+            const colors = [
+                '#fca5a5', // Light red (top)
+                '#fdba74', // Light orange
+                '#fde047', // Light yellow
+                '#bef264', // Lime
+                '#67e8f9', // Cyan
+                '#c084fc'  // Light purple (bottom)
+            ];
+
+            function getColor(y) {
+                const progress = y / canvas.height;
+                const index = Math.min(Math.floor(progress * (colors.length - 1)), colors.length - 2);
+                return colors[index];
+            }
+
+            function draw() {
+                ctx.fillStyle = 'rgba(15, 10, 31, 0.08)';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+                for (let i = 0; i < drops.length; i++) {
+                    const text = chars[Math.floor(Math.random() * chars.length)];
+                    const y = drops[i] * fontSize;
+
+                    ctx.fillStyle = getColor(y);
+                    ctx.font = fontSize + 'px monospace';
+                    ctx.fillText(text, i * fontSize, y);
+
+                    if (y > canvas.height && Math.random() > 0.975) {
+                        drops[i] = 0;
+                    }
+                    drops[i]++;
+                }
+            }
+
+            setInterval(draw, 45);
+        }
+
+        // Night Earth with Rainbow Glowing Power Grids
+        function initEarth() {
+            const container = document.getElementById('three-container');
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(65, container.clientWidth / container.clientHeight, 0.1, 1000);
+            const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+            renderer.setSize(container.clientWidth, container.clientHeight);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+            container.appendChild(renderer.domElement);
+            
+            const textureLoader = new THREE.TextureLoader();
+            const earthMap = textureLoader.load('https://raw.githubusercontent.com/mrdoob/three.js/master/examples/textures/planets/earth_atmos_2048.jpg');
+            const bumpMap = textureLoader.load('https://raw.githubusercontent.com/mrdoob/three.js/master/examples/textures/planets/earth_normal_2048.jpg');
+            
+            const earth = new THREE.Mesh(new THREE.SphereGeometry(2.1, 64, 64), new THREE.MeshPhongMaterial({
+                map: earthMap,
+                bumpMap: bumpMap,
+                bumpScale: 0.05,
+                shininess: 10
+            }));
+            scene.add(earth);
+            
+            const lights = new THREE.Mesh(new THREE.SphereGeometry(2.13, 64, 64), new THREE.MeshPhongMaterial({
+                color: 0xffffff,
+                emissive: 0x00ffff,
+                emissiveIntensity: 0.6,
+                transparent: true,
+                opacity: 0.7
+            }));
+            scene.add(lights);
+            
+            let hue = 0;
+            function animateLights() {
+                hue = (hue + 0.5) % 360;
+                lights.material.emissive.setHSL(hue / 360, 1, 0.6);
+            }
+            
+            scene.add(new THREE.AmbientLight(0x404040, 0.4));
+            const sun = new THREE.DirectionalLight(0xffffff, 0.8);
+            sun.position.set(5, 3, 5);
+            scene.add(sun);
+            
+            camera.position.z = 6.2;
+            
+            function animate() {
+                requestAnimationFrame(animate);
+                earth.rotation.y += 0.0008;
+                lights.rotation.y += 0.0009;
+                animateLights();
+                renderer.render(scene, camera);
+            }
+            animate();
+            
+            window.addEventListener('resize', () => {
+                camera.aspect = container.clientWidth / container.clientHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(container.clientWidth, container.clientHeight);
+            });
+        }
+
+        function initCyanBinary() {
+            const sections = document.querySelectorAll('#about, #education, #experience, #projects, #skills');
+            sections.forEach(section => {
+                const canvas = document.createElement('canvas');
+                canvas.style.position = 'absolute';
+                canvas.style.top = '0';
+                canvas.style.left = '0';
+                canvas.style.width = '100%';
+                canvas.style.height = '100%';
+                canvas.style.zIndex = '0';
+                canvas.style.opacity = '0.4';
+                canvas.style.pointerEvents = 'none';
+                section.style.position = 'relative';
+                section.appendChild(canvas);
+                
+                const ctx = canvas.getContext('2d');
+                function resize() { canvas.width = section.offsetWidth; canvas.height = section.offsetHeight; }
+                resize(); window.addEventListener('resize', resize);
+                
+                const chars = '01';
+                const fontSize = 8;
+                const columns = Math.floor(canvas.width / fontSize);
+                const drops = Array(columns).fill(1);
+                
+                function draw() {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    ctx.fillStyle = '#67e8f9';
+                    ctx.font = fontSize + 'px monospace';
+                    for (let i = 0; i < drops.length; i++) {
+                        const text = chars[Math.floor(Math.random() * chars.length)];
+                        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+                        if (drops[i] * fontSize > canvas.height && Math.random() > 0.93) drops[i] = 0;
+                        drops[i]++;
+                    }
+                }
+                setInterval(draw, 50);
+            });
+        }
+
+        function initMusic() {
+            const audio = document.getElementById('bg-music');
+            const button = document.getElementById('music-toggle');
+            const text = document.getElementById('music-text');
+            let isPlaying = false;
+
+            const tryPlay = () => {
+                audio.volume = 0.4;
+                audio.play().then(() => {
+                    isPlaying = true;
+                    text.textContent = 'Pause Music';
+                    button.style.borderColor = '#67e8f9';
+                }).catch(() => {});
+            };
+
+            document.addEventListener('click', tryPlay, { once: true });
+
+            button.addEventListener('click', (e) => {
+                e.stopImmediatePropagation();
+                if (!isPlaying) {
+                    audio.play().then(() => {
+                        isPlaying = true;
+                        text.textContent = 'Pause Music';
+                        button.style.borderColor = '#67e8f9';
+                    }).catch(() => alert("Couldn't play music."));
+                } else {
+                    audio.pause();
+                    isPlaying = false;
+                    text.textContent = 'Play Music';
+                    button.style.borderColor = 'rgba(255,255,255,0.2)';
+                }
+            });
+        }
+
+        function init() {
+            initMatrixRain();
+            initEarth();
+            initCyanBinary();
+            initMusic();
+            
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth' }); }
+                });
+            });
+        }
+        window.onload = init;
+    </script>
+</body>
+</html>
